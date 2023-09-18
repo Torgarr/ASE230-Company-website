@@ -111,7 +111,7 @@ require_once(".\\lib\\plain-text.php")
                 <div class="row justify-content-center mb-5">
                     <div class="col-lg-7 text-center">
                         <h2 class="fw-bold">Our Services</h2>
-                        <p class="mb-5 text-muted subtitle w-75 mx-auto"><?php loadPageCSV ?></p>
+                        
                     </div>
                 </div>
                 <!-- end row -->
@@ -123,7 +123,7 @@ require_once(".\\lib\\plain-text.php")
                                     <i class="" data-feather="box"></i>
                                 </div>
                                 <h4 class="mb-3 font-size-22">Digital Design</h4>
-                                <p class="text-muted mb-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
+                                <p class="mb-5 text-muted subtitle w-75 mx-auto"><?php loadPageCSV ?></p>
                             </div>
                         </div>
                     </div>
