@@ -54,17 +54,13 @@ require_once(".\\lib\\json.php");
                         <a href="#services" class="nav-link">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#features" class="nav-link">Features</a>
+                        <a href="#features" class="nav-link">Application</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#pricing" class="nav-link">Pricing</a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a href="#team" class="nav-link">Team</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#blog" class="nav-link">Blog</a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a href="#contact" class="nav-link">Contact Us</a>
                     </li>
