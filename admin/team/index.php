@@ -13,7 +13,7 @@
                     <div class="team-box mt-4 position-relative overflow-hidden rounded text-center shadow">
                         <div class="p-4"><?php
                         echo '<div class="p-4">';
-                        echo '<h5 class="font-size-19 mb-1">' . '<a href="detail.php">' . $person['name'] . '</a>' . '</h5>';
+                        echo '<h5 class="font-size-19 mb-1">' . '<a href="detail.php?variable=<?php echo urlencode($person['name']); ?>">' . $person['name'] . '</a>' . '</h5>';
                         echo '</div>';
                         ?></div>
                     </div>
