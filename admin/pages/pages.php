@@ -49,6 +49,19 @@ function createPage($file, $name){
     }
 }
 
+function deletePage($name,$index){
+    if (!file_exists('../../'.$name)){
+        echo 'File Does not exists';
+    }
+    else{
+        $path = dirname(__DIR__,2).'\\'.$name;
+        echo $path;
+        unlink($path);
+        unset($GLOBALS['contents'][$index]);
+        
+    }
+}
+
 
 
 
