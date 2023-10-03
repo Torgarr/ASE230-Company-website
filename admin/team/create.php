@@ -14,7 +14,8 @@ if(isset($_POST['submit'])){
         'bio'  => $_POST['bio']
     );
     if(isset($json_data['team']) && is_array($json_data['team'])){
-        // Append new member to the "team" array
+        
+		// Append new member to the "team" array
         $json_data['team'][] = $new_member;
     } 
     // Append new data
