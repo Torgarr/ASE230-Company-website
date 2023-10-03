@@ -33,29 +33,23 @@ function getPageContent($id)
 
 }
 
-function createPage($file, $name){
-    if (pathinfo($file['newpage']['full_path'],PATHINFO_EXTENSION) != "html" && pathinfo($file['newpage']['full_path'],PATHINFO_EXTENSION) != "php"){
-        echo 'File must be a .html or .php';
-    }
-    elseif (!str_contains($name['file_name'], '.php') && !str_contains($name['file_name'], '.html')){
-        echo 'File must be a .html or .php, make sure you include the file extension in the file name like test.php';
-    }
-    elseif (file_exists('../../'.$name['file_name'])){
+function createPage($name){
+    if (file_exists('../../data/HTML/'.$name['file_name'].'.html')){
         echo 'File already exists';
     }
     else{
-        move_uploaded_file($file['newpage']['tmp_name'],'../../'.$name['file_name']);
-        array_push($GLOBALS['contents'], $name['file_name']);
+        file_put_contents('../../data/HTML/'.$name['file_name'].'.html', $name['file_contents']);
+        array_push($GLOBALS['contents'], ($name['file_name'].'.html'));
         
     }
 }
 
 function deletePage($name,$index){
-    if (!file_exists('../../'.$name)){
+    if (!file_exists('../../data/HTML/'.$name)){
         echo 'File Does not exists';
     }
     else{
-        $path = dirname(__DIR__,2).'\\'.$name;
+        $path = dirname(__DIR__,2).'\\data\\HTML\\'.$name;
         unlink($path);
         unset($GLOBALS['contents'][$index]);
         $newcontent = [];

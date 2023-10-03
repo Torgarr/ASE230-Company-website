@@ -3,12 +3,9 @@ require_once('pages.php');
 
 if(count($_POST)>0){
 
-    print_r($_POST);
-
-    // $count = getSize();
     createPage($_POST);
-    // $item = getSize() - 1;
-    // header('location: edit.php?id='.$item);
+    $item = getSize() - 1;
+    header('location: edit.php?id='.$item);
 }
 
 
