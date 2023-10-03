@@ -2,6 +2,15 @@
 require_once(".\\lib\\plain-text.php");
 require_once(".\\lib\\csv.php");
 require_once(".\\lib\\json.php");
+
+if (count($_POST)>0){
+    $content = file_get_contents('./data/contact.json');
+    $content = json_decode($content,true);
+    $content[] = $_POST;
+    $content=json_encode($content,JSON_PRETTY_PRINT);
+    file_put_contents('./data/contact.json', $content);
+    header('location: index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -237,7 +246,9 @@ require_once(".\\lib\\json.php");
                     <p class="text-muted mb-5">Et harum quidem rerum facilis est expedita distinctio temporecum soluta nobis est eligendi optio cumque nihil impedit quo minus maxime.</p>
 
                     <div>
-                        <form method="post" name="myForm" onsubmit="return validateForm()">
+                        <!-- <form method="post" name="myForm" onsubmit="return validateForm()"> -->
+                        <form method="post" name="myForm" action="<?= $_SERVER['PHP_SELF']?>">
+                        <input type="hidden" name="id" value="<?= time() + rand(1, 100) ?>">
                             <p id="error-msg"></p>
                             <div id="simple-msg"></div>
                             <div class="row">
