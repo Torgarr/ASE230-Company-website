@@ -1,9 +1,9 @@
 <?php
 
-$content = scandir('../../');
-$contents;
+$content = scandir('../../data/HTML/');
+$contents = [];
 foreach ($content as $item){
-    if(str_contains($item, '.php')){
+    if(str_contains($item, '.html')){
         $contents[] = $item;
     }
 }
@@ -24,13 +24,12 @@ function getPageTitle($id)
     return ($GLOBALS['contents'][$id]);
 }
 
+
 function getPageContent($id)
 {
 
-    $source_code = file('../../'.$GLOBALS['contents'][$id]);
-    foreach ($source_code as $line_number => $last_line) {
-        echo nl2br(htmlspecialchars($last_line) . "\n");
-    }
+    $data = file_get_contents('../../data/HTML/'.$GLOBALS['contents'][$id]);
+    return $data;
 
 }
 
