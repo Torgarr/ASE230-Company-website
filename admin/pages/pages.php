@@ -46,6 +46,8 @@ function createPage($file, $name){
     }
     else{
         move_uploaded_file($file['newpage']['tmp_name'],'../../'.$name['file_name']);
+        array_push($GLOBALS['contents'], $name['file_name']);
+        
     }
 }
 
@@ -55,17 +57,17 @@ function deletePage($name,$index){
     }
     else{
         $path = dirname(__DIR__,2).'\\'.$name;
-        echo $path;
         unlink($path);
         unset($GLOBALS['contents'][$index]);
+        $newcontent = [];
+        foreach($GLOBALS['contents'] as $item){
+            array_push($newcontent, $item);
+        }
+        $GLOBALS['contents'] = $newcontent;
+        
         
     }
 }
-
-
-
-
-
 
 
 ?>
