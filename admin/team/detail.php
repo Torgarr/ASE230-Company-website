@@ -1,8 +1,8 @@
 <?php
 	session_start();
 	$file = __DIR__ . '\\..\\..\\data\\members.json';
-    $content = file_get_contents($file);
-    $php_array = json_decode($content, true);
+    	$content = file_get_contents($file);
+    	$php_array = json_decode($content, true);
 	$index = 1;
 	$item = $_GET['id'];
 	
