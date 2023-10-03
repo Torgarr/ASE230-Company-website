@@ -1,11 +1,13 @@
 <?php
-	echo urldecode($_GET['variable']);
-	$recieved =  urldecode($_GET['variable']);
+	session_start();
 	$file = __DIR__ . '\\..\\..\\data\\members.json';
     $content = file_get_contents($file);
     $php_array = json_decode($content, true);
+	$index = 1;
+	$item = $_GET['id'];
+	
 	foreach ($php_array['team'] as $person) {
-		if($person['name'] == $recieved){
+		if($index == $item){
 			?>
 			
 			<div class="col-lg-3 col-sm-6">
@@ -15,12 +17,15 @@
                         echo '<h5 class="font-size-19 mb-1">' . $person['name'] . '</h5>';
 						echo '<h5 class="font-size-19 mb-1">' . $person['role'] . '</h5>';
 						echo '<h5 class="font-size-19 mb-1">' . $person['bio'] . '</h5>';
+						echo '<h5 class="font-size-19 mb-1">' . '<a href="edit.php?id='.$index.'">' . 'Edit' . '</a>' . '</h5>';
+						echo '<h5 class="font-size-19 mb-1">' . '<a href="delete.php?id='.$index.'">' . 'Delete' . '</a>' . '</h5>';
                         echo '</div>';
                         ?></div>
                     </div>
                 </div>
 				<?php
 		}
+		$index ++;
 	}
 
 
