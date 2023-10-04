@@ -18,6 +18,3 @@ $item = $_GET['id'];
     <a href="index.php">Back to Page List</a>
 </body>
 </html>
-
-
-
