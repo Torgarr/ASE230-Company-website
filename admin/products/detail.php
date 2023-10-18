@@ -1,5 +1,5 @@
 <?php
-require_once('pages.php');
+require_once('products.php');
 $item = $_GET['id'];
 ?>
 <html lang="en">
