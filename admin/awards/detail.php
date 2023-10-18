@@ -1,5 +1,5 @@
 <?php
-require_once('pages.php');
+require_once('awards.php');
 $item = $_GET['id'];
 ?>
 <html lang="en">
