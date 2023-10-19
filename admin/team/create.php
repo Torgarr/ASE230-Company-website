@@ -1,36 +1,7 @@
 <?php
-session_start();
-$file = __DIR__ . '\\..\\..\\data\\members.json';
-// Check if the form is submitted
-if(isset($_POST['submit'])){
-    // Read existing JSON data
-    $data = file_get_contents($file);
-    $data_array = json_decode($data, true);
+require_once('team.php');
 
-    // Extract form data
-    $new_member = array(
-        'name' => $_POST['name'],
-        'role' => $_POST['role'],
-        'bio'  => $_POST['bio']
-    );
-    if(isset($json_data['team']) && is_array($json_data['team'])){
-        
-		// Append new member to the "team" array
-        $json_data['team'][] = $new_member;
-    } 
-    // Append new data
-    $data_array['team'][] = $new_member;
-
-    // Convert array to JSON and write to the file
-    $updated_data = json_encode($data_array, JSON_PRETTY_PRINT);
-    file_put_contents($file, $updated_data);
-
-    $_SESSION['message'] = 'Member successfully added';
-
-    // Redirect to avoid form resubmission on page refresh
-    header("Location: {$_SERVER['PHP_SELF']}");
-    exit();
-}
+create();
 
 // Display the form
 ?>
