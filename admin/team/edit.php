@@ -1,37 +1,21 @@
 <?php
-session_start();
+require_once('team.php');
 $file = __DIR__ . '\\..\\..\\data\\members.json';
-// Check if the form is submitted
-if(isset($_POST['submit'])){
-    // Read existing JSON data
-    $data = file_get_contents($file);
-    $data_array = json_decode($data, true);
 
-    // Extract form data
-    $new_member = array(
-        'name' => $_POST['name'],
-        'role' => $_POST['role'],
-        'bio'  => $_POST['bio']
-    );
-    if(isset($json_data['team']) && is_array($json_data['team'])){
-        // Append new member to the "team" array
-        $json_data['team'][] = $new_member;
-    } 
-    // Append new data
-    $data_array['team'][] = $new_member;
+edit();
 
-    // Convert array to JSON and write to the file
-    $updated_data = json_encode($data_array, JSON_PRETTY_PRINT);
-    file_put_contents($file, $updated_data);
+$data = file_get_contents($file);
+$data_array = json_decode($data, true);
 
-    $_SESSION['message'] = 'Member successfully added';
-
-    // Redirect to avoid form resubmission on page refresh
+// Get the specified member's values
+$member_id = $_GET['id'] - 1;
+if(isset($data_array['team'][$member_id])){
+    $current_member = $data_array['team'][$member_id];
+} else {
+    $_SESSION['message'] = 'Invalid member ID';
     header("Location: {$_SERVER['PHP_SELF']}");
     exit();
 }
-
-// Display the form
 ?>
 
 <!DOCTYPE html>
@@ -39,10 +23,10 @@ if(isset($_POST['submit'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Member</title>
+    <title>Edit Member</title>
 </head>
 <body>
-    <h2>Add New Member</h2>
+    <h2>Edit Member</h2>
 
     <?php
     // Display success or error message if available
@@ -51,18 +35,18 @@ if(isset($_POST['submit'])){
         unset($_SESSION['message']); // Clear the message after displaying it
     }
     ?>
-
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	
+    <form action="<?= $_SERVER['PHP_SELF'] ?>?id=<?= $_GET['id'] ?>" method="post">
         <label for="inputName">Name:</label>
-        <input type="text" name="name" id="inputName" required>
+        <input type="text" name="name" id="inputName" value="<?= $current_member['name'] ?>" required>
 
         <label for="inputRole">Role:</label>
-        <input type="text" name="role" id="inputRole" required>
+        <input type="text" name="role" id="inputRole" value="<?= $current_member['role'] ?>" required>
 
         <label for="inputBio">Bio:</label>
-        <textarea name="bio" id="inputBio" required></textarea>
+        <textarea name="bio" id="inputBio" required><?= $current_member['bio'] ?></textarea>
 
-        <input type="submit" name="submit" value="Add Member">
+        <input type="submit" name="submit" value="Edit Member">
     </form>
 </body>
 </html>
