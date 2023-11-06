@@ -1,89 +1,84 @@
 <?php
 
-$content = file_get_contents('../../data/contact.json');
-$content = json_decode($content,true);
+class Contact {
+    private $id;
+    private $subject;
+    private $name;
+    private $email;
+    private $comments;
+
+    public function __construct($id, $subject, $name, $email, $comments) {
+        $this->id = $id;
+        $this->subject = $subject;
+        $this->name = $name;
+        $this->email = $email;
+        $this->comments = $comments;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getSubject() {
+        return $this->subject;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getComments() {
+        return $this->comments;
+    }
+}
 
 class ContactManager {
-    private $content;
+    private static $contacts = [];
 
-    public function __construct($jsonFilePath) {
-        $content = file_get_contents($jsonFilePath);
-        $this->content = json_decode($content, true);
+    public static function loadContactsFromJson($jsonFilePath) {
+        $jsonContent = file_get_contents($jsonFilePath);
+        self::$contacts = json_decode($jsonContent, true);
     }
 
-    public function getSize() {
-        if (empty($this->content)) {
-            return 0;
-        } else {
-            return count($this->content);
+    public static function getContacts() {
+        $contacts = [];
+        
+        foreach (self::$contacts as $contactData) {
+            $contact = new Contact(
+                $contactData['id'],
+                $contactData['subject'],
+                $contactData['name'],
+                $contactData['email'],
+                $contactData['comments']
+                
+            );
+
+            $contacts[] = $contact;
         }
+        return $contacts;
     }
 
-    public function getID($index) {
-        return ($this->content[$index]['id']);
-    }
+    public static function getContactById($id) {
+        foreach (self::$contacts as $contactData) {
+            if ($contactData['id'] == $id) {
+                return new Contact(
+                    $contactData['id'],
+                    $contactData['subject'],
+                    $contactData['name'],
+                    $contactData['email'],
+                    $contactData['comments']
+                );
+            }
+        }
 
-    public function getSubject($index) {
-        return ($this->content[$index]['subject']);
-    }
-
-    public function getName($index) {
-        return ($this->content[$index]['name']);
-    }
-
-    public function getEmail($index) {
-        return ($this->content[$index]['email']);
-    }
-
-    public function getComments($index) {
-        return ($this->content[$index]['comments']);
+        return null; // Contact not found
     }
 }
 
-$jsonFilePath = '../../data/contact.json';
-$contactManager = new ContactManager($jsonFilePath);
 
-function getSize(){
-    $jsonFilePath = '../../data/contact.json';
-    $contactManager = new ContactManager($jsonFilePath);
-    $size = $contactManager->getSize();
-    return $size;
-}
-
-function getID($index){
-    $jsonFilePath = '../../data/contact.json';
-    $contactManager = new ContactManager($jsonFilePath);
-    $id = $contactManager->getID($index);
-    return $id;
-}
-
-function getSubject($index){
-    $jsonFilePath = '../../data/contact.json';
-    $contactManager = new ContactManager($jsonFilePath);
-    $subject = $contactManager->getSubject($index);
-    return $subject;
-}
-
-function getName($index){
-    $jsonFilePath = '../../data/contact.json';
-    $contactManager = new ContactManager($jsonFilePath);
-    $name = $contactManager->getName($index);
-    return $name;
-}
-
-function getEmail($index){
-    $jsonFilePath = '../../data/contact.json';
-    $contactManager = new ContactManager($jsonFilePath);
-    $email = $contactManager->getEmail($index);
-    return $email;
-}
-
-function getComments($index){
-    $jsonFilePath = '../../data/contact.json';
-    $contactManager = new ContactManager($jsonFilePath);
-    $comment = $contactManager->getComments($index);
-    return $comment;
-}
+ContactManager::loadContactsFromJson('../../data/contact.json');
 ?>
-
-
