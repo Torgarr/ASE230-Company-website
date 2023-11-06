@@ -1,5 +1,6 @@
 <?php
 require_once('contacts.php');
+$contacts = ContactManager::getContacts();
 ?>
 <table>
     <thead>
@@ -11,19 +12,14 @@ require_once('contacts.php');
     </thead>
     <tbody>
         <!-- Loop through the pages and display them in rows -->
-        <?php
-        $i = 0;
-        while ($i < getSize()) { ?>
-            <tr>
-                <td><?php echo getID($i); ?></td>
-                <td><?php echo getSubject($i); ?></td>
-                <td>
-                    <a href="detail.php?id=<?php echo $i; ?>">View</a>
-                </td>
-            </tr>
-        <?php
-            $i++;
-        }; 
-        ?>
+        <?php foreach ($contacts as $contact) { ?>
+                <tr>
+                    <td><?php echo $contact->getId(); ?></td>
+                    <td><?php echo $contact->getSubject(); ?></td>
+                    <td>
+                        <a href="detail.php?id=<?php echo $contact->getId(); ?>">View</a>
+                    </td>
+                </tr>
+            <?php } ?>
     </tbody>
 </table>
