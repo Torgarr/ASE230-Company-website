@@ -3,39 +3,87 @@
 $content = file_get_contents('../../data/contact.json');
 $content = json_decode($content,true);
 
+class ContactManager {
+    private $content;
 
+    public function __construct($jsonFilePath) {
+        $content = file_get_contents($jsonFilePath);
+        $this->content = json_decode($content, true);
+    }
+
+    public function getSize() {
+        if (empty($this->content)) {
+            return 0;
+        } else {
+            return count($this->content);
+        }
+    }
+
+    public function getID($index) {
+        return ($this->content[$index]['id']);
+    }
+
+    public function getSubject($index) {
+        return ($this->content[$index]['subject']);
+    }
+
+    public function getName($index) {
+        return ($this->content[$index]['name']);
+    }
+
+    public function getEmail($index) {
+        return ($this->content[$index]['email']);
+    }
+
+    public function getComments($index) {
+        return ($this->content[$index]['comments']);
+    }
+}
+
+$jsonFilePath = '../../data/contact.json';
+$contactManager = new ContactManager($jsonFilePath);
 
 function getSize(){
-    $i = 0;
-    if (empty($GLOBALS['content'])){
-        return 0;
-    }
-    else{
-        foreach ($GLOBALS['content'] as $item){
-            $i++;
-        }
-    return $i;
-    }
+    $jsonFilePath = '../../data/contact.json';
+    $contactManager = new ContactManager($jsonFilePath);
+    $size = $contactManager->getSize();
+    return $size;
 }
 
 function getID($index){
-    return ($GLOBALS['content'][$index]['id']);
+    $jsonFilePath = '../../data/contact.json';
+    $contactManager = new ContactManager($jsonFilePath);
+    $id = $contactManager->getID($index);
+    return $id;
 }
 
 function getSubject($index){
-    return ($GLOBALS['content'][$index]['subject']);
+    $jsonFilePath = '../../data/contact.json';
+    $contactManager = new ContactManager($jsonFilePath);
+    $subject = $contactManager->getSubject($index);
+    return $subject;
 }
 
 function getName($index){
-    return ($GLOBALS['content'][$index]['name']);
+    $jsonFilePath = '../../data/contact.json';
+    $contactManager = new ContactManager($jsonFilePath);
+    $name = $contactManager->getName($index);
+    return $name;
 }
 
 function getEmail($index){
-    return ($GLOBALS['content'][$index]['email']);
+    $jsonFilePath = '../../data/contact.json';
+    $contactManager = new ContactManager($jsonFilePath);
+    $email = $contactManager->getEmail($index);
+    return $email;
 }
 
 function getComments($index){
-    return ($GLOBALS['content'][$index]['comments']);
+    $jsonFilePath = '../../data/contact.json';
+    $contactManager = new ContactManager($jsonFilePath);
+    $comment = $contactManager->getComments($index);
+    return $comment;
 }
 ?>
+
 
